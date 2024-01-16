@@ -1,8 +1,20 @@
+import { useState } from "react";
 import SearchTask from "./SearchTask";
 import TaskAction from "./TaskAction";
 import TaskLists from "./TaskLists";
+const defaultTask = {
+  id: crypto.randomUUID(),
+  title: "Learn React",
+  description:
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex dignissimos architecto eveniet praesentium nulla dolorem!",
+  tags: ["web", "react", "js"],
+  Priority: "High",
+  isFavorite: true,
+};
 
 const TaskBoard = () => {
+  const [tasks, setTasks] = useState([defaultTask]);
+
   return (
     <>
       <section className="mb-20" id="tasks">
@@ -15,7 +27,7 @@ const TaskBoard = () => {
             <TaskAction />
 
             <div className="overflow-auto">
-              <TaskLists />
+              <TaskLists tasks={tasks} />
             </div>
           </div>
         </div>
