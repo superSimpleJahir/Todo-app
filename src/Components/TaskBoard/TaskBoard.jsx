@@ -40,8 +40,16 @@ const TaskBoard = () => {
     setShowAddModal(true);
   };
 
+  const handleDeletetask = (id) => {
+    const removeValue = tasks.filter((del) => del.id !== id);
+    setTasks(removeValue);
+  };
+  const handleAllDelete = () => {
+    setTasks([]);
+  };
+
   const handleOnClose = () => {
-    setTaskToUpdate(null)
+    setTaskToUpdate(null);
     setShowAddModal(false);
   };
 
@@ -61,10 +69,10 @@ const TaskBoard = () => {
           </div>
 
           <div className="rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-8 md:px-9 md:py-16">
-            <TaskAction onAddClick={() => setShowAddModal(true)} />
+            <TaskAction onAddClick={() => setShowAddModal(true)} allDelete={handleAllDelete} />
 
             <div className="overflow-auto">
-              <TaskLists tasks={tasks} onEdit={handleEditTask} />
+              <TaskLists tasks={tasks} onEdit={handleEditTask} onDelete={handleDeletetask} />
             </div>
           </div>
         </div>

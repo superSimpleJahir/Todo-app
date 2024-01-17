@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { FaStar } from "react-icons/fa6";
 
-const TaskLists = ({ tasks,onEdit, }) => {
+const TaskLists = ({ tasks,onEdit,onDelete }) => {
   return (
     <>
       <table className="table-fixed overflow-auto xl:w-full">
@@ -42,7 +42,7 @@ const TaskLists = ({ tasks,onEdit, }) => {
               <td>
                 <div className="flex items-center justify-center space-x-3">
                   <button className="text-blue-500" onClick = {()=>onEdit(task)}>Edit</button>
-                  <button className="text-red-500">Delete</button>
+                  <button className="text-red-500" onClick={()=>onDelete(task.id)}>Delete</button>
                 </div>
               </td>
             </tr>
