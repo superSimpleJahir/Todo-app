@@ -44,13 +44,31 @@ const TaskBoard = () => {
     const removeValue = tasks.filter((del) => del.id !== id);
     setTasks(removeValue);
   };
+
   const handleAllDelete = () => {
     setTasks([]);
+  };
+  const handlefavorite = (taskId) => {
+    const taskIndex = tasks.findIndex((task) => task.id === taskId);
+
+    const newTask = [...tasks];
+
+    newTask[taskIndex].isFavorite = !newTask[taskIndex].isFavorite;
+
+    setTasks(newTask);
   };
 
   const handleOnClose = () => {
     setTaskToUpdate(null);
     setShowAddModal(false);
+  };
+
+  const handleSearch = (searchTerm) => {
+    const filtredTask = tasks.filter((task) =>
+      task.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    setTasks([...filtredTask]);
   };
 
   return (
@@ -65,14 +83,19 @@ const TaskBoard = () => {
         )}
         <div className="container mx-auto">
           <div className="p-2 flex justify-end">
-            <SearchTask />
+            <SearchTask onSearch={handleSearch} />
           </div>
 
           <div className="rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-8 md:px-9 md:py-16">
             <TaskAction onAddClick={() => setShowAddModal(true)} allDelete={handleAllDelete} />
 
             <div className="overflow-auto">
-              <TaskLists tasks={tasks} onEdit={handleEditTask} onDelete={handleDeletetask} />
+              <TaskLists
+                tasks={tasks}
+                onEdit={handleEditTask}
+                onDelete={handleDeletetask}
+                onFavorite={handlefavorite}
+              />
             </div>
           </div>
         </div>

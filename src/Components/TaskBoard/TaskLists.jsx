@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { FaStar } from "react-icons/fa6";
 
-const TaskLists = ({ tasks,onEdit,onDelete }) => {
+const TaskLists = ({ tasks, onEdit, onDelete, onFavorite }) => {
   return (
     <>
       <table className="table-fixed overflow-auto xl:w-full">
@@ -22,7 +22,11 @@ const TaskLists = ({ tasks,onEdit,onDelete }) => {
               key={task.id}
               className="border-b border-[#2E3443] [&>td]:align-baseline [&>td]:px-4 [&>td]:py-2"
             >
-              <td>{task.isFavorite ? <FaStar color="yellow" /> : <FaStar color="#808080" />}</td>
+              <td>
+                <button onClick={() => onFavorite(task.id)}>
+                  {task.isFavorite ? <FaStar color="yellow" /> : <FaStar color="#808080" />}
+                </button>
+              </td>
               <td>{task.title}</td>
               <td>
                 <div>{task.description}</div>
@@ -41,8 +45,12 @@ const TaskLists = ({ tasks,onEdit,onDelete }) => {
               <td className="text-center">{task.priority}</td>
               <td>
                 <div className="flex items-center justify-center space-x-3">
-                  <button className="text-blue-500" onClick = {()=>onEdit(task)}>Edit</button>
-                  <button className="text-red-500" onClick={()=>onDelete(task.id)}>Delete</button>
+                  <button className="text-blue-500" onClick={() => onEdit(task)}>
+                    Edit
+                  </button>
+                  <button className="text-red-500" onClick={() => onDelete(task.id)}>
+                    Delete
+                  </button>
                 </div>
               </td>
             </tr>
