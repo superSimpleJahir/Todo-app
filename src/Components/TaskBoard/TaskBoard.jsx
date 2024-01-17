@@ -16,17 +16,45 @@ const defaultTask = {
 const TaskBoard = () => {
   const [tasks, setTasks] = useState([defaultTask]);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [taskToUpdate, setTaskToUpdate] = useState(null);
 
-  const handleAddTask = (task) => {
-    setTasks([...tasks, task]);
-    console.log(task);
+  const handleAddEditTask = (newTask, isAdd) => {
+    if (isAdd) {
+      setTasks([...tasks, newTask]);
+    } else {
+      setTasks(
+        tasks.map((task) => {
+          if (task.id === newTask.id) {
+            return newTask;
+          }
+          return task;
+        })
+      );
+    }
+
+    setShowAddModal(false);
+  };
+
+  const handleEditTask = (task) => {
+    setTaskToUpdate(task);
+    setShowAddModal(true);
+  };
+
+  const handleOnClose = () => {
+    setTaskToUpdate(null)
     setShowAddModal(false);
   };
 
   return (
     <>
       <section className="mb-20" id="tasks">
-        {showAddModal && <AddTaskModal onSave={handleAddTask} />}
+        {showAddModal && (
+          <AddTaskModal
+            onSave={handleAddEditTask}
+            taskToUpdate={taskToUpdate}
+            handleOnClose={handleOnClose}
+          />
+        )}
         <div className="container mx-auto">
           <div className="p-2 flex justify-end">
             <SearchTask />
@@ -36,7 +64,7 @@ const TaskBoard = () => {
             <TaskAction onAddClick={() => setShowAddModal(true)} />
 
             <div className="overflow-auto">
-              <TaskLists tasks={tasks} />
+              <TaskLists tasks={tasks} onEdit={handleEditTask} />
             </div>
           </div>
         </div>
