@@ -1,9 +1,9 @@
 import { useState } from "react";
-import SearchTask from "./SearchTask";
-import TaskAction from "./TaskAction";
-import TaskLists from "./TaskLists";
-import AddTaskModal from "./AddTaskModal";
-import NoTasksFound from "./NoTasksFound";
+import SearchTask from './SearchTask';
+import TaskAction from './TaskAction';
+import TaskLists from './TaskLists';
+import AddTaskModal from './AddTaskModal';
+import NoTasksFound from './NoTasksFound';
 
 const TaskBoard = () => {
   const [tasks, setTasks] = useState([]);
